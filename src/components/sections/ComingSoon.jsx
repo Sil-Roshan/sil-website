@@ -61,7 +61,7 @@ export default function ComingSoon() {
             {t('comingSoon.title')}
           </motion.h2>
           <motion.h3 variants={item} className="text-3xl font-semibold mb-8 opacity-90">
-            {t('comingSoon.subtitle')}
+            {t('comingSoon.heading')}
           </motion.h3>
           <motion.p variants={item} className="text-lg opacity-85 max-w-2xl mx-auto mb-12">
             {t('comingSoon.description')}
@@ -114,7 +114,7 @@ export default function ComingSoon() {
               className="flex items-center gap-2"
             >
               <span className="inline-block w-3 h-3 bg-white rounded-full"></span>
-              Coming Soon
+              {t('comingSoon.title')}
             </motion.span>
           </motion.div>
 
@@ -124,9 +124,9 @@ export default function ComingSoon() {
             className="grid md:grid-cols-3 gap-6 mt-16 pt-12 border-t border-white/20"
           >
             {[
-              { icon: Smartphone, title: 'iOS & Android', desc: 'Available on all platforms' },
-              { icon: Zap, title: 'Lightning Fast', desc: 'Optimized for speed and performance' },
-              { icon: Shield, title: 'Secure & Private', desc: 'End-to-end encryption' },
+              { icon: Smartphone, title: t('comingSoon.feature1'), desc: t('comingSoon.feature1Desc') },
+              { icon: Zap, title: t('comingSoon.feature2'), desc: t('comingSoon.feature2Desc') },
+              { icon: Shield, title: t('comingSoon.feature3'), desc: t('comingSoon.feature3Desc') },
             ].map((feature, index) => (
               <motion.div
                 key={index}

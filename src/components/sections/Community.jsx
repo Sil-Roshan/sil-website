@@ -106,19 +106,19 @@ export default function Community() {
           <motion.div
             className="text-center mb-12"
           >
-            <h3 className="text-3xl md:text-4xl font-bold mb-4">Core Values</h3>
+            <h3 className="text-3xl md:text-4xl font-bold mb-4">{t('community.coreValuesTitle')}</h3>
             <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-              Built on Islamic teachings, صِلّ embodies values that bring communities together
+              {t('community.coreValuesDesc')}
             </p>
           </motion.div>
 
           <div className="grid md:grid-cols-5 gap-4">
             {[
-              { value: 'صِلّ', icon: Leaf, color: 'text-emerald-600 dark:text-emerald-400' },
-              { value: 'Compassion', icon: Heart, color: 'text-red-600 dark:text-red-400' },
-              { value: 'Trust', icon: Handshake, color: 'text-primary dark:text-primary/80' },
-              { value: 'Community', icon: Home, color: 'text-blue-600 dark:text-blue-400' },
-              { value: 'Transparency', icon: Eye, color: 'text-purple-600 dark:text-purple-400' },
+              { value: t('community.value1'), icon: Leaf, color: 'text-emerald-600 dark:text-emerald-400' },
+              { value: t('community.value2'), icon: Heart, color: 'text-red-600 dark:text-red-400' },
+              { value: t('community.value3'), icon: Handshake, color: 'text-primary dark:text-primary/80' },
+              { value: t('community.value4'), icon: Home, color: 'text-blue-600 dark:text-blue-400' },
+              { value: t('community.value5'), icon: Eye, color: 'text-purple-600 dark:text-purple-400' },
             ].map((item, i) => {
               const IconComponent = item.icon;
               return (

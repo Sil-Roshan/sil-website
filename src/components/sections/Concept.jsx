@@ -184,8 +184,8 @@ export default function Concept() {
                   <CheckCircle2 className="w-8 h-8 text-primary dark:text-primary/80" />
                 </motion.div>
 
-                <h4 className="text-3xl font-bold mb-2 text-primary">The صِلّ Way</h4>
-                <p className="text-sm text-primary/60 dark:text-primary/50 mb-8 font-medium">Modern solution</p>
+                <h4 className="text-3xl font-bold mb-2 text-primary">{t('concept.solutionTitle')}</h4>
+                <p className="text-sm text-primary/60 dark:text-primary/50 mb-8 font-medium">{t('concept.solutionSubtitle')}</p>
 
                 <div className="space-y-4">
                   <motion.div
@@ -196,8 +196,8 @@ export default function Concept() {
                       <CheckCircle2 className="w-5 h-5" />
                     </div>
                     <div>
-                      <p className="font-semibold text-slate-800 dark:text-slate-100">Real Connection</p>
-                      <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">Build meaningful community bonds</p>
+                      <p className="font-semibold text-slate-800 dark:text-slate-100">{t('concept.solution1Title')}</p>
+                      <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">{t('concept.solution1Desc')}</p>
                     </div>
                   </motion.div>
                   <motion.div
@@ -208,8 +208,8 @@ export default function Concept() {
                       <CheckCircle2 className="w-5 h-5" />
                     </div>
                     <div>
-                      <p className="font-semibold text-slate-800 dark:text-slate-100">Verified Trust</p>
-                      <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">Secure identity verification</p>
+                      <p className="font-semibold text-slate-800 dark:text-slate-100">{t('concept.solution2Title')}</p>
+                      <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">{t('concept.solution2Desc')}</p>
                     </div>
                   </motion.div>
                   <motion.div
@@ -220,8 +220,8 @@ export default function Concept() {
                       <CheckCircle2 className="w-5 h-5" />
                     </div>
                     <div>
-                      <p className="font-semibold text-slate-800 dark:text-slate-100">Values Restored</p>
-                      <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">Islamic values meet modern tech</p>
+                      <p className="font-semibold text-slate-800 dark:text-slate-100">{t('concept.solution3Title')}</p>
+                      <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">{t('concept.solution3Desc')}</p>
                     </div>
                   </motion.div>
                 </div>

@@ -161,7 +161,7 @@ export default function Features() {
               transition={{ duration: 2, repeat: Infinity }}
               className="mt-6 text-sm font-semibold"
             >
-              ← Tap another feature to explore →
+              ← {t('features.tapFeature')} →
             </motion.div>
           </div>
         </motion.div>
@@ -174,10 +174,10 @@ export default function Features() {
           className="grid md:grid-cols-4 gap-6 mt-16"
         >
           {[
-            { number: '6', label: 'Core Features' },
-            { number: '100%', label: 'Secure' },
-            { number: '24/7', label: 'Available' },
-            { number: '∞', label: 'Scalable' },
+            { number: '6', label: t('features.coreFeatures') },
+            { number: '100%', label: t('features.secure') },
+            { number: '24/7', label: t('features.available') },
+            { number: '∞', label: t('features.scalable') },
           ].map((stat, index) => (
             <motion.div
               key={index}
