@@ -1,80 +1,99 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import { Shield, Handshake, Zap } from 'lucide-react';
 
 export default function Hero() {
   const { t } = useTranslation();
+  const animatedRef = useRef(false);
 
-  // Anime.js animations on component mount
+  // Try to use Anime.js if available, otherwise Framer Motion handles it
   useEffect(() => {
-    // Wait for anime to be available on window
-    const loadAnime = setInterval(() => {
-      if (window.anime) {
-        clearInterval(loadAnime);
+    if (animatedRef.current) return;
+    
+    const checkAndAnimate = () => {
+      if (typeof window !== 'undefined' && window.anime) {
+        animatedRef.current = true;
         
-        // Animate title with staggered letter effects
-        window.anime.timeline()
-          .add({
-            targets: '.hero-title',
-            scale: [0.8, 1],
-            opacity: [0, 1],
-            duration: 1000,
-            easing: 'easeOutElastic(1, 0.6)',
-          })
-          .add({
-            targets: '.hero-subtitle',
-            opacity: [0, 1],
-            translateY: [20, 0],
-            duration: 800,
-            easing: 'easeOutQuad',
-          }, '-=600')
-          .add({
-            targets: '.hero-description',
-            opacity: [0, 1],
-            translateY: [20, 0],
-            duration: 800,
-            easing: 'easeOutQuad',
-          }, '-=500')
-          .add({
-            targets: '.hero-cta',
-            opacity: [0, 1],
-            scale: [0.9, 1],
-            duration: 700,
-            easing: 'easeOutQuad',
-          }, '-=500')
-          .add({
-            targets: '.hero-chip',
-            opacity: [0, 1],
-            translateY: [30, 0],
-            duration: 600,
-            easing: 'easeOutQuad',
-            stagger: 100,
-          }, '-=200');
-
-        // Pulse animation on title
-        window.anime({
-          targets: '.hero-title',
-          scale: [1, 1.03, 1],
-          duration: 3000,
-          delay: 1500,
-          easing: 'easeInOutQuad',
-          loop: true,
-        });
-
-        // Floating animation for feature chips
-        window.anime({
-          targets: '.hero-chip',
-          translateY: [0, -8, 0],
-          duration: 3000,
-          delay: window.anime.stagger(150),
-          easing: 'easeInOutQuad',
-          loop: true,
-        });
+        // Small delay to ensure DOM is ready
+        setTimeout(() => {
+          try {
+            console.log('🎬 Anime.js found - starting animations');
+            
+            // Create main animation timeline
+            const tl = window.anime.timeline({
+              autoplay: true
+            });
+            
+            // Title entrance - elastic bounce
+            tl.add({
+              targets: '.hero-title',
+              scale: [0.5, 1.1, 1],
+              opacity: [0, 1],
+              duration: 1200,
+              easing: 'easeOutElastic(1, 0.6)',
+            }, 0)
+            .add({
+              targets: '.hero-subtitle',
+              opacity: [0, 1],
+              translateY: [40, 0],
+              duration: 900,
+              easing: 'easeOutQuad',
+            }, 300)
+            .add({
+              targets: '.hero-description',
+              opacity: [0, 1],
+              translateY: [40, 0],
+              duration: 900,
+              easing: 'easeOutQuad',
+            }, 500)
+            .add({
+              targets: '.hero-cta',
+              opacity: [0, 1],
+              scale: [0.7, 1],
+              duration: 800,
+              easing: 'easeOutQuad',
+            }, 800)
+            .add({
+              targets: '.hero-chip',
+              opacity: [0, 1],
+              translateY: [50, 0],
+              duration: 700,
+              easing: 'easeOutQuad',
+              stagger: 150,
+            }, 1000);
+            
+            // Continuous animations
+            window.anime({
+              targets: '.hero-title',
+              scale: [1, 1.06, 1],
+              duration: 3000,
+              delay: 3500,
+              easing: 'easeInOutQuad',
+              loop: true,
+            });
+            
+            window.anime({
+              targets: '.hero-chip',
+              translateY: [-2, -12, -2],
+              duration: 3000,
+              delay: window.anime.stagger(200),
+              easing: 'easeInOutQuad',
+              loop: true,
+            });
+            
+            console.log('✅ Anime.js animations running!');
+          } catch (err) {
+            console.error('Animation error:', err);
+          }
+        }, 100);
+      } else {
+        // Anime.js not available yet, retry
+        setTimeout(checkAndAnimate, 300);
       }
-    }, 100);
-
-    return () => clearInterval(loadAnime);
+    };
+    
+    checkAndAnimate();
   }, []);
 
   const container = {
@@ -136,28 +155,68 @@ export default function Hero() {
         className="max-w-4xl mx-auto text-center relative z-10"
       >
         {/* Main Title Animation */}
-        <motion.div variants={item} className="mb-8">
-          <motion.h1
-            animate={{ scale: [1, 1.02, 1] }}
-            transition={{ duration: 2, repeat: Infinity }}
+        <motion.div 
+          variants={{
+            hidden: { opacity: 0, scale: 0.5 },
+            visible: { 
+              opacity: 1, 
+              scale: 1,
+              transition: { duration: 0.8, ease: 'easeOut', type: 'spring', stiffness: 100 }
+            }
+          }}
+          className="mb-8"
+        >
+          <motion.h1 
             className="hero-title text-7xl md:text-8xl font-bold text-white drop-shadow-lg"
+            animate={{ scale: [1, 1.03, 1] }}
+            transition={{ duration: 2.5, repeat: Infinity, repeatDelay: 3 }}
           >
             صِلّ
           </motion.h1>
         </motion.div>
 
         {/* Subtitle */}
-        <motion.p variants={item} className="hero-subtitle text-2xl md:text-3xl font-semibold text-white mb-4 drop-shadow">
+        <motion.p 
+          variants={{
+            hidden: { opacity: 0, y: 40 },
+            visible: { 
+              opacity: 1, 
+              y: 0,
+              transition: { duration: 0.6, ease: 'easeOut', delay: 0.2 }
+            }
+          }}
+          className="hero-subtitle text-2xl md:text-3xl font-semibold text-white mb-4 drop-shadow"
+        >
           {t('hero.slogan')}
         </motion.p>
 
         {/* Description */}
-        <motion.p variants={item} className="hero-description text-lg text-white/90 mb-8 max-w-2xl mx-auto drop-shadow">
+        <motion.p 
+          variants={{
+            hidden: { opacity: 0, y: 40 },
+            visible: { 
+              opacity: 1, 
+              y: 0,
+              transition: { duration: 0.6, ease: 'easeOut', delay: 0.3 }
+            }
+          }}
+          className="hero-description text-lg text-white/90 mb-8 max-w-2xl mx-auto drop-shadow"
+        >
           {t('hero.description')}
         </motion.p>
 
         {/* CTA Button */}
-        <motion.div variants={item} className="hero-cta flex gap-4 justify-center flex-wrap">
+        <motion.div 
+          variants={{
+            hidden: { opacity: 0, scale: 0.8 },
+            visible: { 
+              opacity: 1, 
+              scale: 1,
+              transition: { duration: 0.5, ease: 'easeOut', delay: 0.4 }
+            }
+          }}
+          className="hero-cta flex gap-4 justify-center flex-wrap"
+        >
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -170,7 +229,6 @@ export default function Hero() {
 
         {/* Feature Chips Animation */}
         <motion.div
-          variants={item}
           className="mt-16 flex flex-wrap justify-center gap-4"
         >
           {[
@@ -180,6 +238,13 @@ export default function Hero() {
           ].map((feature, index) => (
             <motion.div
               key={index}
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ 
+                duration: 0.5,
+                ease: 'easeOut',
+                delay: 0.5 + index * 0.15
+              }}
               whileHover={{ scale: 1.05, y: -5 }}
               className="hero-chip px-6 py-3 bg-white/20 dark:bg-white/10 backdrop-blur-md border border-white/40 dark:border-white/20 rounded-full font-semibold shadow-lg flex items-center gap-2"
             >
