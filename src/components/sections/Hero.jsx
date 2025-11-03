@@ -1,10 +1,81 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import { Shield, Handshake, Zap } from 'lucide-react';
 
 export default function Hero() {
   const { t } = useTranslation();
+
+  // Anime.js animations on component mount
+  useEffect(() => {
+    // Wait for anime to be available on window
+    const loadAnime = setInterval(() => {
+      if (window.anime) {
+        clearInterval(loadAnime);
+        
+        // Animate title with staggered letter effects
+        window.anime.timeline()
+          .add({
+            targets: '.hero-title',
+            scale: [0.8, 1],
+            opacity: [0, 1],
+            duration: 1000,
+            easing: 'easeOutElastic(1, 0.6)',
+          })
+          .add({
+            targets: '.hero-subtitle',
+            opacity: [0, 1],
+            translateY: [20, 0],
+            duration: 800,
+            easing: 'easeOutQuad',
+          }, '-=600')
+          .add({
+            targets: '.hero-description',
+            opacity: [0, 1],
+            translateY: [20, 0],
+            duration: 800,
+            easing: 'easeOutQuad',
+          }, '-=500')
+          .add({
+            targets: '.hero-cta',
+            opacity: [0, 1],
+            scale: [0.9, 1],
+            duration: 700,
+            easing: 'easeOutQuad',
+          }, '-=500')
+          .add({
+            targets: '.hero-chip',
+            opacity: [0, 1],
+            translateY: [30, 0],
+            duration: 600,
+            easing: 'easeOutQuad',
+            stagger: 100,
+          }, '-=200');
+
+        // Pulse animation on title
+        window.anime({
+          targets: '.hero-title',
+          scale: [1, 1.03, 1],
+          duration: 3000,
+          delay: 1500,
+          easing: 'easeInOutQuad',
+          loop: true,
+        });
+
+        // Floating animation for feature chips
+        window.anime({
+          targets: '.hero-chip',
+          translateY: [0, -8, 0],
+          duration: 3000,
+          delay: window.anime.stagger(150),
+          easing: 'easeInOutQuad',
+          loop: true,
+        });
+      }
+    }, 100);
+
+    return () => clearInterval(loadAnime);
+  }, []);
 
   const container = {
     hidden: { opacity: 0 },
@@ -69,24 +140,24 @@ export default function Hero() {
           <motion.h1
             animate={{ scale: [1, 1.02, 1] }}
             transition={{ duration: 2, repeat: Infinity }}
-            className="text-7xl md:text-8xl font-bold text-white drop-shadow-lg"
+            className="hero-title text-7xl md:text-8xl font-bold text-white drop-shadow-lg"
           >
             صِلّ
           </motion.h1>
         </motion.div>
 
         {/* Subtitle */}
-        <motion.p variants={item} className="text-2xl md:text-3xl font-semibold text-white mb-4 drop-shadow">
+        <motion.p variants={item} className="hero-subtitle text-2xl md:text-3xl font-semibold text-white mb-4 drop-shadow">
           {t('hero.slogan')}
         </motion.p>
 
         {/* Description */}
-        <motion.p variants={item} className="text-lg text-white/90 mb-8 max-w-2xl mx-auto drop-shadow">
+        <motion.p variants={item} className="hero-description text-lg text-white/90 mb-8 max-w-2xl mx-auto drop-shadow">
           {t('hero.description')}
         </motion.p>
 
         {/* CTA Button */}
-        <motion.div variants={item} className="flex gap-4 justify-center flex-wrap">
+        <motion.div variants={item} className="hero-cta flex gap-4 justify-center flex-wrap">
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -110,7 +181,7 @@ export default function Hero() {
             <motion.div
               key={index}
               whileHover={{ scale: 1.05, y: -5 }}
-              className="px-6 py-3 bg-white/20 dark:bg-white/10 backdrop-blur-md border border-white/40 dark:border-white/20 rounded-full font-semibold shadow-lg flex items-center gap-2"
+              className="hero-chip px-6 py-3 bg-white/20 dark:bg-white/10 backdrop-blur-md border border-white/40 dark:border-white/20 rounded-full font-semibold shadow-lg flex items-center gap-2"
             >
               <feature.icon size={20} className="text-primary" />
               <span className="text-slate-900 dark:text-white">

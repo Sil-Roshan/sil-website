@@ -92,7 +92,7 @@ export default function Features() {
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-4">{t('features.title')}</h2>
           <p className="text-lg text-slate-600 dark:text-slate-300">
-            Discover what makes صِلّ special
+            {t('features.discoverSpecial')}
           </p>
         </motion.div>
 
